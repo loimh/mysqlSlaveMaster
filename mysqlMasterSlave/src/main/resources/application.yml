@@ -1,4 +1,5 @@
-spring:
+#主从数据库配置
+1spring:
   datasource:
     master:
       jdbc-url: jdbc:mysql://localhost:3306/task_db?serverTimezone=UTC
@@ -10,3 +11,4 @@ spring:
       username: root   # 只读账户
       password: mysql
       driver-class-name: com.mysql.jdbc.Driver
+

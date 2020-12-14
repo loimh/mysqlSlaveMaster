@@ -19,6 +19,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public int insert(TbUser user) {
         return userDAO.insert(user);
+
     }
 
     @Override

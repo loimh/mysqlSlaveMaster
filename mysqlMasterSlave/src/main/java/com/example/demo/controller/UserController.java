@@ -9,6 +9,9 @@ import com.example.demo.utils.ResultVO;
 import com.example.demo.utils.SendMailUtil;
 import com.fasterxml.jackson.databind.util.JSONPObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.RedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
@@ -26,10 +29,20 @@ public class UserController {
     @Autowired
     SendMailUtil sendMailUtil;
 
+    @Autowired
+    RedisTemplate<Object,Object> redisTemplate;
+
+
+
     @RequestMapping(value = "/insertUser",method = RequestMethod.POST )
     public int insertUser(@RequestBody String Json){
         TbUser jsonpObject=JSONObject.parseObject(Json, (Type) TbUser.class);
         return userService.insert(jsonpObject);
+    }
+    @RequestMapping(value = "/updateUser",method = RequestMethod.POST )
+    public int updateUser(@RequestBody String Json){
+        TbUser jsonpObject=JSONObject.parseObject(Json, (Type) TbUser.class);
+        return userService.updateByPrimaryKey(jsonpObject);
     }
     @RequestMapping(value = "/hello",method = RequestMethod.GET)
     public String hello(){
@@ -37,12 +50,17 @@ public class UserController {
     }
 
     @PostMapping("/deleteUser")
-    public int deleteUser(@RequestParam Integer id){
+    public int deleteUserById(@RequestParam String id){
         return userService.deleteByPrimaryKey(id);
     }
 
+    @PostMapping("/selectById")
+    public TbUser selectUserById(@RequestParam String id){
+        return userService.selectById(id);
+    }
+
     @PostMapping("/getList")
-    public List getList(@RequestBody String json) throws ArithmeticException{
+    public List getList(@RequestBody String json) {
         //给qq邮箱发送邮件事例
 //        sendMailUtil.sendMail("765783376@qq.com","邮件标题","邮件内容");
 //        try{
@@ -53,6 +71,5 @@ public class UserController {
 
         TbUser jsonpObject=JSONObject.parseObject(json, (Type) TbUser.class);
         return userService.getList(jsonpObject);
-//        return  new ResultVO(userService.getList(jsonpObject));
     }
 }

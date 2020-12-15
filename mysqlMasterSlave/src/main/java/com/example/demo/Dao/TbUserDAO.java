@@ -17,4 +17,8 @@ public interface TbUserDAO  {
     int deleteByPrimaryKey(Integer id);
 
     List<TbUser> getList(TbUser user);
+
+    TbUser selectByPrimaryKey(Integer  id);
+
+    int updateByPrimaryKey(TbUser user);
 }

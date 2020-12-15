@@ -8,7 +8,7 @@
   <sql id="Base_Column_List">
     id, `name`
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultType="com.example.demo.entity.TbUser">
     select 
     <include refid="Base_Column_List" />
     from tb_user

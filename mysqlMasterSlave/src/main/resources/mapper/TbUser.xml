@@ -18,9 +18,9 @@
     delete from tb_user
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.example.demo.entity.TbUser">
-    insert into tb_user (id, `name`)
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR})
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.example.demo.entity.TbUser">
+    insert into tb_user ( `name`)
+    values (#{name,jdbcType=VARCHAR})
   </insert>
   <select id="getList" resultMap="BaseResultMap" parameterType="com.example.demo.entity.TbUser">
     select *

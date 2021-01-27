@@ -23,14 +23,7 @@ public class DBContextHolder {
     }
 
     public static void slave() {
-        //  轮询
-        int index = counter.getAndIncrement() % 2;
-        if (counter.get() > 9999) {
-            counter.set(-1);
-        }
-        if (index == 0) {
             set(DBTypeEnum.SLAVE1);
             System.out.println("切换到slave1");
-        }
     }
 }

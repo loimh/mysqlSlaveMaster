@@ -15,6 +15,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.lang.reflect.Type;
 import java.util.List;
@@ -72,4 +73,17 @@ public class UserController {
         TbUser jsonpObject=JSONObject.parseObject(json, (Type) TbUser.class);
         return userService.getList(jsonpObject);
     }
+
+
+    /**
+     * 图片上传接口
+     * @param
+     * @return
+     */
+    @PostMapping("/upload")
+    public String  Upload(@RequestParam("file") MultipartFile zipFile) {
+        return userService.uploadFile(zipFile);
+    }
+
+
 }
